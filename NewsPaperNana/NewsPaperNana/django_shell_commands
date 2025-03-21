@@ -1,0 +1,36 @@
+cd NewsPaperNana
+python manage.py shell
+from news.models import *
+u1 = User.objects.create_user('Ken')
+u2 = User.objects.create_user('Barbie')
+Author.objects.create(authorUser=u1)
+Author.objects.create(authorUser=u2)
+Category.objects.create(name='FASHION')
+Category.objects.create(name='SPORT')
+Category.objects.create(name='POLITICS')
+Category.objects.create(name='HEALTH')
+author1 = Author.objects.get(id=1)
+author2 = Author.objects.get(id=2)
+Post.objects.create(author=author1, categoryType='NW', title='about me', text='toxic')
+Post.objects.create(author=author1, categoryType='AR', title='about u', text='love')
+Post.objects.create(author=author2, categoryType='AR', title='dresses', text='.....')
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=2))
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=3).postCategory.add(Category.objects.get(id=4))
+ Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='everything')
+ Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=1).authorUser, text='thing')
+ Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=2).authorUser, text='every')
+ Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=2).authorUser, text='hi')
+  Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).rating
+Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=1).rating
+Comment.objects.get(id=1).dislike()
+>>> Comment.objects.get(id=1).rating
+1
+>>> Author.objects.get(id=1)
+
